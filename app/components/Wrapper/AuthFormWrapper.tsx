@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 import AuthButtons from "../Buttons/AuthButtons";
 
-
 const AuthFormWrapper = ({
   children,
   type,
@@ -18,12 +17,10 @@ const AuthFormWrapper = ({
   const switchingRouteText =
     type === "Sign In" ? "Don't have an account?" : "Already have an account?";
   return (
-    <div className="bg-gray-100 h-screen flex-center flex-col ">
+    <div className="bg-gray-100 h-screen flex-center flex-col font-(family-name:--font-geist) px-4">
       <Image src={"/icons/logo.png"} alt="Logo" height={48} width={48} />
-      <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 font-inter">
-        {title}
-      </h2>
-      <div className=" mt-3 bg-white shadow-md rounded-lg px-[32px] py-[40px]  w-[520px]">
+      <h2 className="mt-3 text-3xl font-bold  text-gray-900  ">{title}</h2>
+      <div className=" mt-3 bg-white shadow-md rounded-lg px-[32px] py-[40px] w-full md:w-[520px]">
         {children}
         <p className="paragraph-regular text-center mt-[25px]">
           {switchingRouteText}{" "}
