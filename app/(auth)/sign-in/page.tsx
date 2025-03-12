@@ -1,94 +1,36 @@
 "use client";
-import AuthFormWrapper from "@/app/components/Wrapper/AuthFormWrapper";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { signInSchema } from "@/lib/zod-validation-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircleIcon } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { Path, useForm } from "react-hook-form";
-import { z } from "zod";
 
-const page = () => {
+import React, { useState } from "react";
+import { signInSchema } from "@/lib/zod-validation-schemas";
+import { useRouter } from "next/navigation";
+import { z } from "zod"; 
+import AuthForm from "@/components/Forms/AuthForm";
+
+const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const defualtValues = { email: "", password: "" };
-  const form = useForm<z.infer<typeof signInSchema>>({
-    defaultValues: defualtValues,
-    resolver: zodResolver(signInSchema),
-  });
-
-  const handleSubmit = () => {};
+  const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsLoading(true);
+    try {
+      console.log("Sign In Data:", data);
+    
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <AuthFormWrapper type="Sign In">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="mt-10 space-y-6"
-        >
-          {Object.keys(defualtValues).map((field) => {
-            return (
-              <FormField
-                key={field}
-                control={form.control}
-                name={field as Path<z.infer<typeof signInSchema>>}
-                render={({ field }) => {
-                  return (
-                    <FormItem className="flex w-full flex-col gap-2.5">
-                      <FormLabel className="paragraph-medium">
-                        {field.name === "email"
-                          ? "Email Address"
-                          : field.name.charAt(0).toUpperCase() +
-                            field.name.slice(1)}
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          required
-                          type={field.name === "password" ? "password" : "text"}
-                          {...field}
-                          className="paragraph-regular  focus-visible:ring-0 focus-visible:border-2 focus-visible:border-blue-500 outline-none  min-h-12 rounded-1.5 border"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-            );
-          })}
-          <Link
-            className="body-medium text-[#1DA1F2]"
-            href={"/forgot-password"}
-          >
-            <p className="my-[14px] text-right">Forgot Password ?</p>
-          </Link>
-          <Button
-            variant={"ghost"}
-            className="bg-blue-400 cursor-pointer hover:bg-blue-400/80 w-full h-[45px] paragraph-semibold text-white hover:text-white active:scale-95 duration-150 transition-all ease-in-out"
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading && (
-              <LoaderCircleIcon className="mr-2 size-4 animate-spin" />
-            )}
-            Sign In
-          </Button>
-        </form>
-      </Form>
-    </AuthFormWrapper>
+    <AuthForm
+      type="Sign In"
+      schema={signInSchema}
+      defaultValues={{ email: "", password: "" }}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+    />
   );
 };
 
-export default page;
+export default SignInPage;
