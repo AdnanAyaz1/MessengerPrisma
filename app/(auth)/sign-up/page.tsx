@@ -25,7 +25,12 @@ const SignUpPage = () => {
     <AuthForm
       type="Sign Up"
       schema={signUpSchema}
-      defaultValues={{ username: "", email: "", password: "" }}
+      defaultValues={{
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      }}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     />
