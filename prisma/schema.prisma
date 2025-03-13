@@ -20,7 +20,7 @@ model User {
   username String   @unique
   image     String?
   provider String
-  providerAccountId String
+  providerAccountId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

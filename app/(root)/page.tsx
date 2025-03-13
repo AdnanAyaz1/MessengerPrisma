@@ -7,7 +7,7 @@ export default async function Home() {
     redirect("/sign-in");
   }
   return (
-    <div className="h-screen bg-gradient-to-br from-fuchsia-400 to bg-fuchsia-600 text-3xl font-bold font-(family-name:--font-roboto) ">
+    <div className="h-screen bg-gradient-to-br from-fuchsia-400 to bg-fuchsia-600 text-3xl font-bold">
       This is the paragraph text
     </div>
   );

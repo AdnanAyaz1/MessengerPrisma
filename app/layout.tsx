@@ -1,21 +1,6 @@
 import type { Metadata } from "next";
-import { Roboto, Inter, Geist } from "next/font/google";
+import { Bounce, ToastContainer } from "react-toastify";
 import "./globals.css";
-
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-});
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Messenger",
@@ -29,11 +14,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${roboto.variable} ${inter.variable} ${geist.variable} antialiased`}
-    >
-      <body>{children}</body>
+    <html lang="en" className={`antialiased font-urbanist`}>
+      <body>
+        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
+      </body>
     </html>
   );
 }

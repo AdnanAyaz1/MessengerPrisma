@@ -14,8 +14,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm, Path } from "react-hook-form";
 import AuthFormWrapper from "@/components/Wrapper/AuthFormWrapper";
+import PasswordToggle from "../PasswordToggle";
+import UsernameCheck from "../UsernameCheck";
 import { useState } from "react";
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
 
 interface AuthFormProps<T extends z.ZodType<any, any>> {
   type: "Sign In" | "Sign Up";
@@ -32,7 +33,25 @@ const AuthForm = <T extends z.ZodType<any, any>>({
   onSubmit,
   isLoading = false,
 }: AuthFormProps<T>) => {
-  const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const [showPassword, setShowPassword] = useState({
+    passwordField: false,
+    confirmPasswordField: false,
+  });
+
+  const togglePasswordType = (fieldName: string) => {
+    if (fieldName.toLocaleLowerCase() === "password") {
+      setShowPassword((pre) => ({
+        ...pre,
+        passwordField: !pre.passwordField,
+      }));
+    }
+    if (fieldName.toLocaleLowerCase() === "confirmpassword") {
+      setShowPassword((pre) => ({
+        ...pre,
+        confirmPasswordField: !pre.confirmPasswordField,
+      }));
+    }
+  };
 
   const form = useForm<z.infer<T>>({
     defaultValues,
@@ -40,6 +59,8 @@ const AuthForm = <T extends z.ZodType<any, any>>({
   });
 
   const { errors } = form.formState;
+
+  // console.log("errors",errors)
 
   return (
     <AuthFormWrapper type={type}>
@@ -68,29 +89,34 @@ const AuthForm = <T extends z.ZodType<any, any>>({
                       <Input
                         required
                         type={
-                          field.name === "password" ||
-                          field.name === "confirmPassword"
-                            ? showPassword
+                          field.name === "password"
+                            ? showPassword.passwordField
                               ? "text"
                               : "password"
-                            : "text"
+                            : field.name === "confirmPassword"
+                              ? showPassword.confirmPasswordField
+                                ? "text"
+                                : "password"
+                              : "text"
                         }
                         {...field}
-                        className={`paragraph-regular focus-visible:ring-0 focus-visible:border-2  outline-none min-h-12 rounded-1.5 border ${errors[field.name] ? "border-destructive border-2 focus-visible:border-destructive " : "focus-visible:border-blue-500"} `}
+                        className={`paragraph-regular focus-visible:ring-0 focus-visible:border-2 outline-none min-h-12 rounded-1.5 border ${
+                          errors[field.name]
+                            ? "border-destructive border-2 focus-visible:border-destructive"
+                            : "focus-visible:border-blue-500"
+                        }`}
                       />
-                      {field.name === "password" ||
-                      field.name === "confirmPassword" ? (
-                        <div
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="cursor-pointer absolute right-4 top-1/3 "
-                        >
-                          {showPassword ? (
-                            <EyeIcon className="size-5" />
-                          ) : (
-                            <EyeClosedIcon className="size-5" />
-                          )}
-                        </div>
-                      ) : null}
+                      {/* Show Username Availability Indicator */}
+                      {field.name === "username" && (
+                        <UsernameCheck form={form} />
+                      )}
+                      {/* Toggle Password Visibility */}
+                      {field.name?.toLocaleLowerCase().includes("password") && (
+                        <PasswordToggle
+                          togglePasswordType={togglePasswordType}
+                          fieldName={field.name}
+                        />
+                      )}
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -98,7 +124,11 @@ const AuthForm = <T extends z.ZodType<any, any>>({
               )}
             />
           ))}
-          <SubmitButton isLoading={isLoading} text={type} />
+          <SubmitButton
+            isLoading={isLoading}
+            text={type}
+            disabled={Object.keys(errors).length > 0}
+          />
         </form>
       </Form>
     </AuthFormWrapper>

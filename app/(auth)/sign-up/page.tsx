@@ -5,6 +5,8 @@ import { signUpSchema } from "@/lib/zod-validation-schemas";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import AuthForm from "@/components/Forms/AuthForm";
+import { api } from "@/lib/api";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +15,14 @@ const SignUpPage = () => {
   const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsLoading(true);
     try {
-      console.log("Sign Up Data:", data);
+      const { confirmPassword, ...formData } = data;
+      const res = await api.auth.registor(formData);
+      console.log("res", res);
+      if (res.success) {
+        toast.success("Registration Successful!");
+      } else {
+        toast.error(`${res.message}`, { ariaLabel: "Registration Failed!" });
+      }
     } catch (error) {
       console.error(error);
     } finally {
