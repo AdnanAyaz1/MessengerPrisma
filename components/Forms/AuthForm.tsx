@@ -18,7 +18,7 @@ import PasswordToggle from "../PasswordToggle";
 import UsernameCheck from "../UsernameCheck";
 import { useState } from "react";
 
-interface AuthFormProps<T extends z.ZodType<any, any>> {
+interface AuthFormProps<T extends z.ZodType<T, T>> {
   type: "Sign In" | "Sign Up";
   schema: T;
   defaultValues: z.infer<T>;
@@ -26,7 +26,7 @@ interface AuthFormProps<T extends z.ZodType<any, any>> {
   isLoading?: boolean;
 }
 
-const AuthForm = <T extends z.ZodType<any, any>>({
+const AuthForm = <T extends z.ZodType<T, T>>({
   type,
   schema,
   defaultValues,

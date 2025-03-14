@@ -12,6 +12,8 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
+
+
 const config = [
   {
     ignores: ["components/ui/**/*"],
@@ -33,6 +35,8 @@ const config = [
 
     rules: {
       "no-undef": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
     },
   },
 ];

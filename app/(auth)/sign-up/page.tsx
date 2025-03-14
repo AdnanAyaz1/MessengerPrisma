@@ -15,13 +15,13 @@ const SignUpPage = () => {
   const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsLoading(true);
     try {
-      const { confirmPassword, ...formData } = data;
-      const res = await api.auth.registor(formData);
+      const res = await api.auth.registor(data);
       if (res.success) {
         toast.success("Registration Successful!");
       } else {
         toast.error(`${res.message}`, { ariaLabel: "Registration Failed!" });
       }
+      router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
