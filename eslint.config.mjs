@@ -12,34 +12,45 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-const config = [
+const eslintConfig = [
   {
     ignores: ["components/ui/**/*"],
   },
-  ...compat.extends(
-    "next/core-web-vitals",
-    "next/typescript",
-    "standard",
-    "prettier"
-  ),
-
-  {
+  ...compat.config({
+    extends: [
+      "next/core-web-vitals",
+      "next/typescript",
+      "standard",
+      "prettier",
+    ],
     rules: {
-      "comma-dangle": "off",
-      "no-use-before-define": "off", // ✅ Allow using variables before declaration
-      eqeqeq: "off", // ✅ Remove strict equality rule
-      "@typescript-eslint/no-explicit-any": "off", // ✅ Allow explicit `any`
-      "@typescript-eslint/no-unused-vars": "off", // ✅ Turn off unused vars rule
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin", // Built-in types are first
+            "external", // External libraries
+            "internal", // Internal modules
+            ["parent", "sibling"], // Parent and sibling types can be mingled together
+            "index", // Then the index file
+            "object", // Object imports
+          ],
+          "newlines-between": "always",
+          pathGroups: [
+            {
+              pattern: "@app/**",
+              group: "external",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["builtin"],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
-  },
-  {
-    files: ["**/*.ts", "**/*.tsx"],
-
-    rules: {
-      "no-undef": "off",
-      "no-unused-vars": "off",
-    },
-  },
+  }),
 ];
-
-export default config;
+export default eslintConfig;

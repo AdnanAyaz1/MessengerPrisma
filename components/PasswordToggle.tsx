@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import { useState } from "react";
 
 interface PasswordToggleProps {
   togglePasswordType: (fieldName: string) => void;

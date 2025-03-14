@@ -1,6 +1,7 @@
-import React from "react";
-import { Button } from "../ui/button";
 import { LoaderCircleIcon } from "lucide-react";
+import React from "react";
+
+import { Button } from "../ui/button";
 
 const SubmitButton = ({
   isLoading,

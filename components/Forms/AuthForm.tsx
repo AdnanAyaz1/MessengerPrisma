@@ -1,5 +1,10 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm, Path } from "react-hook-form";
+import { z } from "zod";
+
 import SubmitButton from "@/components/Buttons/SubmitButton";
 import {
   Form,
@@ -10,15 +15,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useForm, Path } from "react-hook-form";
 import AuthFormWrapper from "@/components/Wrapper/AuthFormWrapper";
+
 import PasswordToggle from "../PasswordToggle";
 import UsernameCheck from "../UsernameCheck";
-import { useState } from "react";
 
-interface AuthFormProps<T extends z.ZodType<any, any>> {
+interface AuthFormProps<T extends z.ZodType> {
   type: "Sign In" | "Sign Up";
   schema: T;
   defaultValues: z.infer<T>;
@@ -26,7 +28,7 @@ interface AuthFormProps<T extends z.ZodType<any, any>> {
   isLoading?: boolean;
 }
 
-const AuthForm = <T extends z.ZodType<any, any>>({
+const AuthForm = <T extends z.ZodType>({
   type,
   schema,
   defaultValues,

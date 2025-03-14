@@ -1,16 +1,15 @@
 "use client";
-import { signIn } from "next-auth/react";
-
+import { LoaderCircleIcon } from "lucide-react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 
-import {LoaderCircleIcon} from 'lucide-react'
 import { Button } from "@/components/ui/button";
 
 const AuthButtons = () => {
   const [isLoading, setIsLoading] = useState("");
   const handleAuth = async (provider: string) => {
-    if (provider == "google") {
+    if (provider === "google") {
       setIsLoading("google");
     } else setIsLoading("github");
     await signIn(provider, {

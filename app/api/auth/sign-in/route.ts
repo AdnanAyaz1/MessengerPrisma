@@ -1,7 +1,8 @@
+import bcrypt from "bcryptjs";
+
+import prisma from "@/lib/prismadb";
 import { extractErrorMessages, apiResponse, handleApiError } from "@/lib/utils";
 import { signInSchema } from "@/lib/zod-validation-schemas";
-import prisma from "@/lib/prismadb";
-import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();

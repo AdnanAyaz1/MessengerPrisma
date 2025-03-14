@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { UseFormReturn, Path, FieldValues } from "react-hook-form";
+
 import { api } from "@/lib/api";
 
 interface UsernameCheckProps<T extends FieldValues> {
@@ -38,6 +39,7 @@ const UsernameCheck = <T extends FieldValues>({
           form.clearErrors("username" as Path<T>);
         }
       } catch (error) {
+        console.log(error);
         setUsernameAvailable(null);
       } finally {
         setCheckingUsername(false);

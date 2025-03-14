@@ -1,7 +1,8 @@
+import bcrypt from "bcryptjs";
+
+import prisma from "@/lib/prismadb";
 import { apiResponse, extractErrorMessages, handleApiError } from "@/lib/utils";
 import { signUpSchemaApi } from "@/lib/zod-validation-schemas";
-import bcrypt from "bcryptjs";
-import prisma from "@/lib/prismadb";
 
 export async function POST(req: Request) {
   const { username, email, password } = await req.json();
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
       email,
       password,
     });
-    
+
     if (!validatedData.success) {
       const message = extractErrorMessages(
         validatedData.error.flatten().fieldErrors
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create a new user
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         username,
         email,
