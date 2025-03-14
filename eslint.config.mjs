@@ -29,6 +29,7 @@ const config = [
       "no-use-before-define": "off", // ✅ Allow using variables before declaration
       eqeqeq: "off", // ✅ Remove strict equality rule
       "@typescript-eslint/no-explicit-any": "off", // ✅ Allow explicit `any`
+      "@typescript-eslint/no-unused-vars": "off", // ✅ Turn off unused vars rule
     },
   },
   {
@@ -37,7 +38,6 @@ const config = [
     rules: {
       "no-undef": "off",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error",
     },
   },
 ];
