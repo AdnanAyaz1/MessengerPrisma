@@ -17,7 +17,6 @@ const SignUpPage = () => {
     try {
       const { confirmPassword, ...formData } = data;
       const res = await api.auth.registor(formData);
-      console.log("res", res);
       if (res.success) {
         toast.success("Registration Successful!");
       } else {

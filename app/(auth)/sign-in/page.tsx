@@ -19,15 +19,9 @@ const SignInPage = () => {
       if (res.success) {
         toast.success("Login Successfull");
       } else {
-        toast.error(
-          <div className="font-urbanist">
-            <h4 className=" text-red-400 font-semibold ">
-              Registration Failed
-            </h4>
-            <p>{res.message}</p>
-          </div>
-        );
+        toast.error(`${res.message}`);
       }
+      router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
