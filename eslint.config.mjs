@@ -24,6 +24,7 @@ const eslintConfig = [
       "prettier",
     ],
     rules: {
+      "no-use-before-define": false,
       "import/order": [
         "error",
         {

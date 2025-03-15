@@ -3,6 +3,7 @@ interface FetchOptions extends RequestInit {
 }
 
 export async function fetchHandler(url: string, options: FetchOptions = {}) {
+ 
   const {
     timeout = 30000,
     headers: customHeaders = {},

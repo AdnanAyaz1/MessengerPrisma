@@ -8,6 +8,7 @@ import { z } from "zod";
 import AuthForm from "@/components/Forms/AuthForm";
 import { api } from "@/lib/api";
 import { signInSchema } from "@/lib/zod-validation-schemas";
+import { signIn } from "next-auth/react";
 
 const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +17,18 @@ const SignInPage = () => {
   const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsLoading(true);
     try {
-      const res = await api.auth.log_in(data);
-      if (res.success) {
-        toast.success("Login Successfull");
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      console.log("This is response from sign in", res);
+      if (res?.error) {
+        toast.error("Invalid Email or Password");
       } else {
-        toast.error(`${res.message}`);
+        toast.success("Login Successfull");
+        router.push("/");
       }
-      router.push("/");
     } catch (error) {
       console.error(error);
     } finally {

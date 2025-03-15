@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
-import { UseFormReturn, Path, FieldValues } from "react-hook-form";
+import { UseFormReturn} from "react-hook-form";
 
 import { api } from "@/lib/api";
 
-interface UsernameCheckProps<T extends FieldValues> {
-  form: UseFormReturn<T>;
+interface UsernameCheckProps {
+  form: UseFormReturn;
 }
 
-const UsernameCheck = <T extends FieldValues>({
-  form,
-}: UsernameCheckProps<T>) => {
+const UsernameCheck = ({ form }: UsernameCheckProps) => {
   const [usernameAvailable, setUsernameAvailable] = useState<null | boolean>(
     null
   );
   const [checkingUsername, setCheckingUsername] = useState<boolean>(false);
 
-  const username = form.watch("username" as Path<T>);
+  const username = form.watch("username");
 
   useEffect(() => {
     if (!username) {
       setUsernameAvailable(null);
-      form.clearErrors("username" as Path<T>);
+      form.clearErrors("username");
       return;
     }
 
@@ -31,12 +29,12 @@ const UsernameCheck = <T extends FieldValues>({
         setUsernameAvailable(res.success);
 
         if (!res.success) {
-          form.setError("username" as Path<T>, {
+          form.setError("username", {
             type: "manual",
             message: "This username is already taken",
           });
         } else {
-          form.clearErrors("username" as Path<T>);
+          form.clearErrors("username");
         }
       } catch (error) {
         console.log(error);

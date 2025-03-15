@@ -62,8 +62,6 @@ const AuthForm = <T extends z.ZodType>({
 
   const { errors } = form.formState;
 
-  // console.log("errors",errors)
-
   return (
     <AuthFormWrapper type={type}>
       <Form {...form}>

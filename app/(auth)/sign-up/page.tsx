@@ -19,10 +19,10 @@ const SignUpPage = () => {
       const res = await api.auth.registor(data);
       if (res.success) {
         toast.success("Registration Successful!");
+        router.push("/");
       } else {
-        toast.error(`${res.message}`, { ariaLabel: "Registration Failed!" });
+        toast.error(`${res.message}`);
       }
-      router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
