@@ -27,7 +27,10 @@ export async function POST(req: Request) {
 
     let isValid: boolean | Promise<boolean> = false;
     if (existingUser)
-      isValid = await bcrypt.compare(password, existingUser?.password);
+      isValid = await bcrypt.compare(
+        password,
+        existingUser?.password as string
+      );
 
     if (existingUser && isValid) {
       return apiResponse("Registration Successfull", true, 200);

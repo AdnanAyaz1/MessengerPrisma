@@ -1,24 +1,27 @@
 import getAllUsers from "@/actions/getAllUsers";
+import getConversations from "@/actions/getConversations";
 import { getUser } from "@/actions/getUser";
-import EmptyState from "@/components/EmptyState";
+import ConversationList from "@/components/Conversations/ConversationList";
 import DesktopSidebar from "@/components/Sidebar/DesktopSidebar";
 import MobileFooter from "@/components/Sidebar/MobileFooter";
-import UserList from "@/components/User/UserList";
 import { ExtendedUser } from "@/types/types";
+import React, { ReactNode } from "react";
 
-export default async function Home() {
+const layout = async ({ children }: { children: ReactNode }) => {
   const user = await getUser({ protectedRoute: true });
   const allUsers = await getAllUsers();
+  const conversations = await getConversations();
   return (
     <div>
       <DesktopSidebar user={user as ExtendedUser} />
       <MobileFooter />
-      <UserList items={allUsers as ExtendedUser[]} />
-      <div className="hidden lg:block lg:pl-80 h-full">
-        <EmptyState />
-      </div>
+      <ConversationList
+        users={allUsers as ExtendedUser[]}
+        initialItems={conversations}
+      />
+      {children}
     </div>
   );
-}
+};
 
-// font-[family-name:var(--font-geist-sans)]
+export default layout;

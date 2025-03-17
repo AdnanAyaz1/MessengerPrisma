@@ -1,35 +1,21 @@
-export interface User {
-  id: string; // MongoDB ObjectId
-  email: string;
-  password: string;
-  username: string;
-  image?: string; // Optional
-  provider: string;
-  providerAccountId?: string;
-  createdAt: Date;
-  updatedAt: Date;
+import { User, Message, Conversation } from "@prisma/client";
 
-  conservationIds: string[]; // Array of ObjectId strings
-  converstarions: Conversation[]; // Array of related Conversation objects
+// User Type with Optional Relations
+export type ExtendedUser = User & {
+  conversations?: ExtendedConversation[]; // Optional
+  messages?: ExtendedMessage[]; // Optional
+  seenMessages?: ExtendedMessage[]; // Optional
+};
 
-  seenMessagesIds: string[];
-  seenMessages: Message[]; // Array of seen messages
+// Conversation Type with Optional Relations
+export type ExtendedConversation = Conversation & {
+  messages?: ExtendedMessage[]; // Optional
+  users?: ExtendedUser[]; // Optional
+};
 
-  messages: Message[]; // Array of messages
-}
-
-export interface Conversation {
-  id: string;
-  participants: User[]; // Users in the conversation
-  messages: Message[]; // Messages in the conversation
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface Message {
-  id: string;
-  senderId: string;
-  content: string;
-  seenBy: User[]; // Users who have seen the message
-  createdAt: Date;
-}
+// Message Type with Optional Relations
+export type ExtendedMessage = Message & {
+  sender?: ExtendedUser; // Optional
+  conversation?: ExtendedConversation; // Optional
+  seen?: ExtendedUser[]; // Optional
+};

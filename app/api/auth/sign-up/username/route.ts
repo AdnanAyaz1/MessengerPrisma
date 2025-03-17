@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   const username = await req.json();
   try {
     // Check if the username is already taken
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.findFirst({
       where: {
         username,
       },

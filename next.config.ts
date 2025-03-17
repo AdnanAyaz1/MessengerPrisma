@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     // Disable linting during production build
     ignoreDuringBuilds: true,
   },
+
+  images: {
+    domains: ["avatars.githubusercontent.com"],
+  },
 };
 
 export default nextConfig;

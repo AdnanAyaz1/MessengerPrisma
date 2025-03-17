@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import AuthForm from "@/components/Forms/AuthForm";
-import { api } from "@/lib/api";
 import { signInSchema } from "@/lib/zod-validation-schemas";
 import { signIn } from "next-auth/react";
 
@@ -22,7 +21,6 @@ const SignInPage = () => {
         password: data.password,
         redirect: false,
       });
-      console.log("This is response from sign in", res);
       if (res?.error) {
         toast.error("Invalid Email or Password");
       } else {

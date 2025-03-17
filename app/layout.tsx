@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { Bounce, ToastContainer } from "react-toastify";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Messenger",
@@ -16,22 +17,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`antialiased font-urbanist`}>
-      <body>
-        {children}
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition={Bounce}
-        />
-      </body>
+      <SessionProvider>
+        <body>
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+          />
+        </body>
+      </SessionProvider>
     </html>
   );
 }
