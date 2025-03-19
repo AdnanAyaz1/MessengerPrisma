@@ -3,7 +3,6 @@ import { getUser } from "./getUser";
 
 const getAllUsers = async () => {
   const user = await getUser();
-
   try {
     const users = await prisma.user.findMany({
       orderBy: {

@@ -14,7 +14,7 @@ export default async function Home() {
       <DesktopSidebar user={user as ExtendedUser} />
       <MobileFooter />
       <UserList items={allUsers as ExtendedUser[]} />
-      <div className="hidden lg:block lg:pl-80 h-full">
+      <div className="hidden lg:block lg:pl-90 h-full">
         <EmptyState />
       </div>
     </div>

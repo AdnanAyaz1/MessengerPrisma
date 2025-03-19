@@ -16,7 +16,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
         pb-20
         lg:pb-0
         lg:left-20
-        lg:w-60
+        lg:w-72
         lg:block
         overflow-y-auto
         border-r

@@ -38,7 +38,8 @@ const ConversationList: React.FC<ConversationListProps> = ({
           pb-20
           lg:pb-0
           lg:left-20
-          lg:w-60
+          lg:w-80
+          bg-white
           lg:block
           overflow-y-auto
           border-r
