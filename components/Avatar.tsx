@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/types/types";
+import { User } from "@prisma/client";
 import Image from "next/image";
 
 interface AvatarProps {
