@@ -6,12 +6,15 @@ import EmptyState from "@/components/EmptyState";
 import MessageForm from "@/components/Forms/MessageForm";
 import React from "react";
 
-interface IParams {
-  conversationId: string;
-}
-const page = async ({ params }: { params: IParams }) => {
-  const conversation = await getConversationById(params.conversationId);
-  const messages = await getMessages(params.conversationId);
+const page = async ({
+  params,
+}: {
+  params: Promise<{ conversationId: string }>;
+}) => {
+  const { conversationId } = await params;
+
+  const conversation = await getConversationById(conversationId);
+  const messages = await getMessages(conversationId);
 
   if (!conversation) {
     return (
