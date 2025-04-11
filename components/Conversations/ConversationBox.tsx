@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { ExtendedConversation } from "@/types/types";
 import useOtherUser from "@/hooks/useOtherUser";
 import Avatar from "../Avatar";
+import { User } from "@prisma/client";
 
 interface ConversationBoxProps {
   data: ExtendedConversation;
@@ -81,7 +82,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avatar user={otherUser} />
+      <Avatar user={otherUser as User} />
 
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
