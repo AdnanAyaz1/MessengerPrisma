@@ -5,6 +5,7 @@ import React, { useMemo, useState } from "react";
 import Avatar from "../Avatar";
 import Link from "next/link";
 import { HiChevronLeft, HiEllipsisHorizontal } from "react-icons/hi2";
+import { User } from "@prisma/client";
 
 const Header = ({ conversation }: { conversation: ExtendedConversation }) => {
   const otherUser = useOtherUser(conversation);
@@ -48,7 +49,7 @@ const Header = ({ conversation }: { conversation: ExtendedConversation }) => {
           <HiChevronLeft size={32} />
         </Link>
 
-        <Avatar user={otherUser} />
+        <Avatar user={otherUser as User} />
 
         <div className="flex flex-col">
           <div>{conversation.name || otherUser?.username}</div>
